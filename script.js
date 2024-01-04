@@ -13,16 +13,10 @@ const generateUrl = function () {
 const getJson = async function () {
   try {
     const url = generateUrl();
-    const response = await fetch(
-      url, 
-      { mode: "cors" }
-      );
+    const response = await fetch(url, { mode: "cors" });
     const responseJson = response.json();
-    console.log(responseJson);
+    return responseJson;
   } catch (error) {
     console.log(error);
   }
 };
-
-let url = generateUrl();
-getJson(url);
