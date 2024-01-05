@@ -1,0 +1,29 @@
+button {
+  margin: 0 auto;
+}
+
+.errorInField {
+  background-color: #ff000052;
+  font-weight: bold;
+  text-align: center;
+}
+
+.errorInField:focus {
+  background-color: #ffffff;
+  font-weight: normal;
+  text-align: left;
+}
+
+.errorInField:focus:placeholder-shown {
+  color: #ffffff00;
+}
+
+form {
+  display: grid;
+  gap: 1vh;
+  justify-content: center;
+}
+
+label {
+  display: grid;
+}
