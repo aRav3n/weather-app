@@ -79,7 +79,7 @@ label {
 
 #conditionImage {
   display: flex;
-  justify-content: center;
+  justify-self: center;
   margin: 0;
   padding: 0;
 }
