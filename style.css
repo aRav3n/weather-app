@@ -1,5 +1,13 @@
+body {
+  display: grid;
+  justify-content: center;
+}
+
 button {
-  margin: 0 auto;
+  border: none;
+  border-radius: 0.25rem;
+  margin: 1vh auto;
+  padding: 0.2rem 0.6rem;
 }
 
 .errorInField {
@@ -19,11 +27,59 @@ button {
 }
 
 form {
+  background-color: #00000030;
+  border-radius: 2vmin;
   display: grid;
   gap: 1vh;
   justify-content: center;
+  margin: 3vh 0;
+  max-width: 90vw;
+  padding: 2vh 5vw;
 }
 
 label {
   display: grid;
+}
+
+#weatherDisplay {
+  background-color: #00000030;
+  border-radius: 2vmin;
+  display: grid;
+  justify-content: center;
+  gap: 2vh;
+  margin: 3vh 0;
+  max-width: 90vw;
+  padding: 2vh 5vw;
+}
+
+#weatherDisplay * {
+  margin: 0;
+  padding: 0;
+}
+
+#weatherDisplay button {
+  margin: 1vh auto;
+  padding: 0.2rem 0.6rem;
+}
+
+#weatherDisplay > div {
+  display: grid;
+  gap: 0.5vh;
+}
+
+#weatherDisplay p {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#weatherDisplay p > span:nth-child(2) {
+  font-weight: bold;
+  text-align: center;
+}
+
+#conditionImage {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
 }

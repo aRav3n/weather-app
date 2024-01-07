@@ -1,5 +1,7 @@
 const getWeatherButton = document.querySelector("#getWeather");
 
+const updateDom = function (weatherDataObject) {};
+
 const apiDataPull = async function () {
   try {
     const getLocation = function () {
@@ -75,9 +77,11 @@ const apiDataPull = async function () {
     };
 
     document.querySelector("form").reset();
+    weatherDataObject = {};
     getWeatherButton.addEventListener("click", async () => {
       const weatherData = await getData();
       document.querySelector("form").reset();
+      console.log(weatherData);
       return weatherData;
     });
   } catch (error) {
