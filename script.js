@@ -1,6 +1,54 @@
 const getWeatherButton = document.querySelector("#getWeather");
 
-const updateDom = function (weatherDataObject) {};
+const updateDom = function (weatherDataObject) {
+  let unitsMetric = false;
+  const cityDom = document.querySelector("#city");
+  const countryDom = document.querySelector("#country");
+  const conditionImageDom = document.querySelector("#conditionImage");
+  const conditionTextDom = document.querySelector("#conditionText");
+  const humidityDom = document.querySelector("#humidity");
+  const cloudPercentDom = document.querySelector("#cloudPercent");
+  const weatherDisplayDom = document.querySelector("#weatherDisplay");
+  const changeUnitsButton = document.querySelector("#changeUnits");
+  const tempDom = document.querySelector("#temp");
+  const feelsLikeDom = document.querySelector("#feelsLike");
+  const windSpeedDom = document.querySelector("#windSpeed");
+
+  const setHtml = function (jsElement, objectElement, suffix) {
+    jsElement.innerHTML = "";
+    if (suffix) {
+      jsElement.innerHTML = weatherDataObject[objectElement] + suffix;
+    } else {
+      jsElement.innerHTML = weatherDataObject[objectElement];
+    }
+  };
+
+  setHtml(cityDom, "city");
+  setHtml(countryDom, "country");
+  setHtml(conditionImageDom, "conditionImage");
+  setHtml(conditionTextDom, "conditionText");
+  setHtml(humidityDom, "humidity", "%");
+  setHtml(cloudPercentDom, "cloudPercent", "%");
+
+  const setVariableItems = function () {
+    if (unitsMetric) {
+      setHtml(tempDom, "tempC", " °C");
+      setHtml(feelsLikeDom, "feelsLikeC", " °C");
+      setHtml(windSpeedDom, "windKph", " kph");
+    } else {
+      setHtml(tempDom, "tempF", " °F");
+      setHtml(feelsLikeDom, "feelsLikeF", " °F");
+      setHtml(windSpeedDom, "windMph", " mph");
+    }
+  };
+
+  setVariableItems();
+  changeUnitsButton.addEventListener("click", () => {
+    setVariableItems();
+  });
+
+  weatherDisplayDom.style.display = "grid";
+};
 
 const apiDataPull = async function () {
   try {
@@ -47,8 +95,7 @@ const apiDataPull = async function () {
         addToDataObject("country", location.country);
         addToDataObject("city", location.name);
         addToDataObject("conditionText", condition.text);
-        const conditionImage = new Image();
-        conditionImage.src = condition.icon;
+        const conditionImage = `<img src="http:${condition.icon}">`;
         addToDataObject("conditionImage", conditionImage);
         addToDataObject("cloudPercent", current.cloud);
         addToDataObject("tempC", current.temp_c);
@@ -82,9 +129,11 @@ const apiDataPull = async function () {
       const weatherData = await getData();
       document.querySelector("form").reset();
       console.log(weatherData);
-      return weatherData;
+      updateDom(weatherData);
     });
   } catch (error) {
     console.log(error);
   }
 };
+
+apiDataPull();
