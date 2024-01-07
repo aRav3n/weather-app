@@ -1,10 +1,29 @@
-const apiDataPull = async function (location) {
+const getWeatherButton = document.querySelector("#getWeather");
+
+const apiDataPull = async function () {
   try {
-    let city = location ? location : "Merida, Mexico";
+    const getLocation = function () {
+      try {
+        const locationField = document.querySelector("#location");
+        const locationValue = locationField.value;
+        if (locationValue) {
+          const weatherLocation = locationField.value;
+          locationField.value = "";
+          return weatherLocation;
+        } else {
+          locationField.classList.toggle("errorInField");
+          locationField.placeholder = "Enter a location";
+          return false;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
     const generateUrl = function () {
       try {
         const apiKey = "0cdd91de3c714477a03190112240201";
+        const city = getLocation();
         const url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`;
         return url;
       } catch (error) {
@@ -55,28 +74,11 @@ const apiDataPull = async function (location) {
       }
     };
 
-    const weatherData = await getData();
-    return weatherData;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const getLocation = function () {
-  try {
-    const getWeatherButton = document.querySelector("#getWeather");
-    const locationField = document.querySelector("#location");
-    locationField.value = "";
-    getWeatherButton.addEventListener("click", () => {
-      if (locationField.value.length) {
-        const location = locationField.value;
-        locationField.value = "";
-        console.log(location);
-        return location;
-      } else {
-        locationField.classList.toggle("errorInField");
-        locationField.placeholder = "Enter a location";
-      }
+    document.querySelector("form").reset();
+    getWeatherButton.addEventListener("click", async () => {
+      const weatherData = await getData();
+      document.querySelector("form").reset();
+      return weatherData;
     });
   } catch (error) {
     console.log(error);
